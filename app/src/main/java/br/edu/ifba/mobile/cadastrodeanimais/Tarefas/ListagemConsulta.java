@@ -11,7 +11,6 @@ import java.util.List;
 import br.edu.ifba.mobile.cadastrodeanimais.bd.Animal;
 import br.edu.ifba.mobile.cadastrodeanimais.bd.Consulta;
 import br.edu.ifba.mobile.cadastrodeanimais.bd.FachadaBD;
-import br.edu.ifba.mobile.cadastrodeanimais.fragmentos.FragmentoListaAnimais;
 
 /**
  * Created by alunoifba on 27/05/2016.
@@ -20,14 +19,12 @@ public class ListagemConsulta extends AsyncTask <Void,Void,List<Consulta>>{
 
     private Context contexto = null;
     private Consulta consulta = null;
-    private ListView listaConsultas = null;
-    private String nome;
+    private ListView listaDisciplinas = null;
 
 
-    public ListagemConsulta(Context contexto, ListView listaConsultas){
+    public ListagemConsulta(Context contexto, ListView listaDisciplinas){
         this.contexto = contexto;
-        this.listaConsultas = listaConsultas;
-        nome = FragmentoListaAnimais.getInstancia().getAnimalSelecionado().getNome();
+        this.listaDisciplinas = listaDisciplinas;
     }
 
 
@@ -35,7 +32,7 @@ public class ListagemConsulta extends AsyncTask <Void,Void,List<Consulta>>{
     @Override
     protected List<Consulta> doInBackground(Void... params) {
         String mensagem = "";
-        List<Consulta> consultas = FachadaBD.getInstancia().listarConsultas(nome);
+        List<Consulta> consultas = FachadaBD.getInstancia().listarConsultas();
 
       return consultas;
     }
@@ -50,7 +47,7 @@ public class ListagemConsulta extends AsyncTask <Void,Void,List<Consulta>>{
         }else{
 
             ArrayAdapter<Consulta> adaptador = new ArrayAdapter<Consulta>(contexto, android.R.layout.simple_list_item_single_choice, consultas);
-            listaConsultas.setAdapter(adaptador);
+            listaDisciplinas.setAdapter(adaptador);
 
         }
     }

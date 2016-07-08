@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import br.edu.ifba.mobile.cadastrodeanimais.R;
 import br.edu.ifba.mobile.cadastrodeanimais.Tarefas.ListagemAnimal;
@@ -36,13 +35,11 @@ public class FragmentoListaCadastros extends Fragment {
 
     private View tela = null;
     private ListView lista = null;
-    private TextView nomean = null;
-    private TextView espAnim = null;
 
     @Override
     public View onCreateView(LayoutInflater inflador, ViewGroup vgrupo, Bundle bundle){
 
-        tela = inflador.inflate(R.layout.fragmento_listagem_consultas,vgrupo,false);
+        tela = inflador.inflate(R.layout.fragmento_cadastro_consulta,vgrupo,false);
 
         preparar();
         return tela;
@@ -70,10 +67,12 @@ public class FragmentoListaCadastros extends Fragment {
     }
 
     private void preparar(){
-        lista = (ListView) tela.findViewById(R.id.listConsulta);
-        nomean = (TextView) tela.findViewById(R.id.nomeAnim);
-        espAnim = (TextView) tela.findViewById(R.id.EspAnim);
+        lista = (ListView) tela.findViewById(R.id.listaDisciplinas);
+
         this.setHasOptionsMenu(true);
+        lista.setClickable(true);
+        lista.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
     }
 
     public void atualizar(){
@@ -88,20 +87,6 @@ public class FragmentoListaCadastros extends Fragment {
             consulta = (Consulta) lista.getItemAtPosition(posicao);
         }
         return consulta;
-    }
-
-    public void exibirAnimalSelecionado(){
-        Animal animal = FragmentoListaAnimais.getInstancia().getAnimalSelecionado();
-        nomean.setText(animal.getNome());
-        espAnim.setText(animal.getEspecie());
-        ListagemConsulta listagem = new ListagemConsulta(this.getContext(),this.lista);
-        listagem.execute();
-        }
-
-
-    private void limparCampos(){
-        this.espAnim.setText("");
-        this.nomean.setText("");
     }
 
 }

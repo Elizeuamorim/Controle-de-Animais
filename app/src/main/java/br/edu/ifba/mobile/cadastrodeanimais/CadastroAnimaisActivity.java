@@ -25,7 +25,6 @@ import br.edu.ifba.mobile.cadastrodeanimais.fragmentos.FragmentoCadastro;
 import br.edu.ifba.mobile.cadastrodeanimais.fragmentos.FragmentoCadastroConsulta;
 import br.edu.ifba.mobile.cadastrodeanimais.fragmentos.FragmentoInformacao;
 import br.edu.ifba.mobile.cadastrodeanimais.fragmentos.FragmentoListaAnimais;
-import br.edu.ifba.mobile.cadastrodeanimais.fragmentos.FragmentoListaCadastros;
 
 public class CadastroAnimaisActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
@@ -99,8 +98,6 @@ public class CadastroAnimaisActivity extends AppCompatActivity implements ViewPa
             FragmentoCadastro.getInstancia().exibirAnimalSelecionado();
         } else if (position == 3) {
             FragmentoCadastroConsulta.getInstancia().exibirAnimalSelecionado();
-        }else if (position == 4) {
-            FragmentoListaCadastros.getInstancia().exibirAnimalSelecionado();
         }
 
     }
@@ -185,7 +182,6 @@ public class CadastroAnimaisActivity extends AppCompatActivity implements ViewPa
 
                 case 3: frag = FragmentoCadastroConsulta.getInstancia();
                     break;
-                case 4: frag = FragmentoListaCadastros.getInstancia();
             }
 
             return frag;
@@ -194,7 +190,7 @@ public class CadastroAnimaisActivity extends AppCompatActivity implements ViewPa
         @Override
         public int getCount() {
             // Show 3 total pages. aumenetei uma pagina
-            return 5;
+            return 4;
         }
 
         @Override
@@ -208,8 +204,6 @@ public class CadastroAnimaisActivity extends AppCompatActivity implements ViewPa
                     return "Cad. Animais";
                 case 3:
                     return "Cad. Consultas";
-                case 4:
-                    return "Consultas";
             }
             return null;
         }

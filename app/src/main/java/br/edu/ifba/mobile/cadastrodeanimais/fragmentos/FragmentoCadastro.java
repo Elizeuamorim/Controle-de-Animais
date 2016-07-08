@@ -52,7 +52,7 @@ public class FragmentoCadastro extends Fragment {
         botaoGravar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (animal.getNome() == null) {
+                if (animal.getCodigo() == -1) {
                     GravacaoAnimal gravacao = new GravacaoAnimal(getContexto(), getAnimal());
                     gravacao.execute();
                 }
@@ -74,7 +74,7 @@ public class FragmentoCadastro extends Fragment {
     }
     public void exibirAnimalSelecionado(){
         animal = FragmentoListaAnimais.getInstancia().getAnimalSelecionado();
-        if (animal.getNome() == null) {
+        if (animal.getCodigo() == -1) {
             limparCampos();
         } else {
             carregarCampos();
