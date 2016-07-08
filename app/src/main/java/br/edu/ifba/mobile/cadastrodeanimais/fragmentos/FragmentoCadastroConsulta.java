@@ -77,7 +77,7 @@ public class FragmentoCadastroConsulta extends Fragment {
     }
     public void exibirAnimalSelecionado(){
         Animal animal = FragmentoListaAnimais.getInstancia().getAnimalSelecionado();
-        if (animal.getCodigo() == -1) {
+        if (animal.getNome() == null) {
             limparCampos();
         } else {
             this.nomeAnimal1.setText(animal.getNome());

@@ -24,7 +24,7 @@ public class RemocaoAnimal extends AsyncTask <Void,Void,String>{
     protected String doInBackground(Void... params) {
         String mensagem = "";
 
-        if (animal.getCodigo() != -1){
+        if (animal.getNome() != null){
             if (FachadaBD.getInstancia().remover(animal)== 0){
             mensagem = "Problema de remoção!";
         }else {

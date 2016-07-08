@@ -65,7 +65,7 @@ public class FragmentoListaAnimais extends Fragment {
 
     private void preparar(){
         lista = (ListView) tela.findViewById(R.id.listaDisciplinas);
-
+        atualizar();
         this.setHasOptionsMenu(true);
         lista.setClickable(true);
         lista.setChoiceMode(ListView.CHOICE_MODE_SINGLE);

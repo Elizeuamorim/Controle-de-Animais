@@ -1,22 +1,12 @@
 package br.edu.ifba.mobile.cadastrodeanimais.bd;
 
 public class Animal {
-	private long codigo = -1;
 	private String nome;
 	private String especie;
 	private String raca;
 	private String idade;
 
 	// construtor
-
-
-	public long getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(long codigo) {
-		this.codigo = codigo;
-	}
 
 	public String getNome() {
 		return nome;

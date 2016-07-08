@@ -24,7 +24,7 @@ public class FachadaBD extends SQLiteOpenHelper {
 		return instancia;
 	}
 
-	private static String NOME_BANCO = "CadastrodeAnimais";
+	private static String NOME_BANCO = "Cadastroanm";
 	private static int VERSAO_BANCO = 1;
 
 
@@ -42,7 +42,7 @@ public class FachadaBD extends SQLiteOpenHelper {
 
 	private static String COMANDO_CRIACAO_TABELA_CONSULTAS =
 			"CREATE TABLE CONS(" +
-					"NOME_ANIMAL TEXT PRIMARY KEY, DT TEXT, SINTOMAS TEXT, PROC TEXT)";
+					"NOMEANIMAL TEXT PRIMARY KEY, DT TEXT, SINTOMAS TEXT, PROC TEXT)";
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
@@ -82,7 +82,7 @@ public class FachadaBD extends SQLiteOpenHelper {
 		valores.put("RACA", animal.getRaca());
 		valores.put("IDADE", animal.getIdade());
 
-		long codigo = db.update("ANIMAIS",valores,"CODIGO = "+ animal.getCodigo(),null);
+		long codigo = db.update("ANIMAIS",valores,"NOME "+ animal.getNome(),null);
 
 		return codigo;
 	}
@@ -90,7 +90,7 @@ public class FachadaBD extends SQLiteOpenHelper {
 	public int remover(Animal animal) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
-		return db.delete("ANIMAIS", "CODIGO =" + animal.getCodigo(),null);
+		return db.delete("ANIMAIS", "NOME ='" + animal.getNome()+"'",null);
 
 	}
 
@@ -99,7 +99,7 @@ public class FachadaBD extends SQLiteOpenHelper {
 		List<Animal> animais = new ArrayList<Animal>();
 		SQLiteDatabase db = this.getReadableDatabase();
 
-		String selecao = "SELECT CODIGO, NOME, ESPECIE, RACA, IDADE FROM ANIMAIS";
+		String selecao = "SELECT NOME, ESPECIE, RACA, IDADE FROM ANIMAIS";
 
 		Cursor cursor = db.rawQuery(selecao,null);
 
@@ -108,7 +108,6 @@ public class FachadaBD extends SQLiteOpenHelper {
 			boolean temProximo = cursor.moveToFirst();
 			while(temProximo){
 				Animal animal = new Animal();
-				animal.setCodigo(cursor.getLong(cursor.getColumnIndex("CODIGO")));
 				animal.setNome(cursor.getString(cursor.getColumnIndex(("NOME"))));
 				animal.setEspecie(cursor.getString(cursor.getColumnIndex("ESPECIE")));
 				animal.setRaca(cursor.getString(cursor.getColumnIndex("RACA")));
@@ -127,7 +126,7 @@ public class FachadaBD extends SQLiteOpenHelper {
 		valores.put("PROC", consulta.getProcedimentos());
 		valores.put("SINTOMAS", consulta.getSintomas());
 		valores.put("DT", consulta.getData());
-		valores.put("NOME_ANIMAL", consulta.getNome1());
+		valores.put("NOMEANIMAL", consulta.getNome1());
 
 
 
@@ -138,19 +137,6 @@ public class FachadaBD extends SQLiteOpenHelper {
 	}
 
 
-	public long atualizar(Consulta consulta) {
-		SQLiteDatabase db = this.getWritableDatabase();
-		ContentValues valores = new ContentValues();
-
-		valores.put("NOME1", consulta.getNome1());
-		valores.put("DATA", consulta.getData());
-		valores.put("SINTOMAS", consulta.getSintomas());
-		valores.put("PROCEDIMENTOS", consulta.getProcedimentos());
-
-		long codigo = db.update("CONSULTAS",valores,"CODIGO = "+ consulta.getCodigo(),null);
-
-		return codigo;
-	}
 
 	public int remover(Consulta consulta) {
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -159,12 +145,12 @@ public class FachadaBD extends SQLiteOpenHelper {
 
 	}
 
-	public List<Consulta> listarConsultas() {
+	public List<Consulta> listarConsultas(String codigo) {
 
 		List<Consulta> consultas = new ArrayList<Consulta>();
 		SQLiteDatabase db = this.getReadableDatabase();
 
-		String selecao = "SELECT CODIGO, NOME1, DATA, SINTOMAS, PROCEDIMENTOS FROM CONSULTAS";
+		String selecao = "SELECT NOMEANIMAL,DT, SINTOMAS, PROC FROM CONS WHERE NOMEANIMAL ='"+codigo+"'";
 
 		Cursor cursor = db.rawQuery(selecao,null);
 
@@ -173,11 +159,10 @@ public class FachadaBD extends SQLiteOpenHelper {
 			boolean temProximo = cursor.moveToFirst();
 			while(temProximo){
 				Consulta consulta= new Consulta();
-				consulta.setCodigo(cursor.getLong(cursor.getColumnIndex("CODIGO")));
-				consulta.setNome1(cursor.getString(cursor.getColumnIndex(("NOME1"))));
-				consulta.setData(cursor.getString(cursor.getColumnIndex("DATA")));
+				consulta.setNome1(cursor.getString(cursor.getColumnIndex(("NOMEANIMAL"))));
+				consulta.setData(cursor.getString(cursor.getColumnIndex("DT")));
 				consulta.setSintomas(cursor.getString(cursor.getColumnIndex("SINTOMAS")));
-				consulta.setProcedimentos(cursor.getString(cursor.getColumnIndex("PROCEDIMENTOS")));
+				consulta.setProcedimentos(cursor.getString(cursor.getColumnIndex("PROC")));
 				consultas.add(consulta);
 				temProximo = cursor.moveToNext();
 			}

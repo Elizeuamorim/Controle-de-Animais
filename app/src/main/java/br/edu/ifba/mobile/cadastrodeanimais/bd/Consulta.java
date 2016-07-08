@@ -52,7 +52,7 @@ public class Consulta {
 
 	@Override
 	public String toString(){
-		return "Nome: "+this.getNome1()+". Sintomas: "+this.getSintomas()+".";
+		return "Data: "+this.getData()+". Sintomas: "+this.getSintomas()+". Proced. ou Medic.: "+this.getProcedimentos();
 	}
 
 
